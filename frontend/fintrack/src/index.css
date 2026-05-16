@@ -22,6 +22,7 @@
   --color-primary: var(--primary);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
+  --color-destructive: var(--destructive);
   --color-border: var(--border);
 }
 
@@ -34,6 +35,9 @@
   --primary: #22c55e;
   --muted-foreground: #94a3b8;
   --accent: #3b82f6;
+  --accent-foreground: #f8fafc;
+  --destructive: #ef4444;
+  --destructive-foreground: #f8fafc;
   --border: #1e293b;
   --input: #1e293b;
   --gradient-primary: linear-gradient(135deg, #22c55e 0%, #3b82f6);
