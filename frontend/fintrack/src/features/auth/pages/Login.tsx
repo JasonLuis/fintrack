@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleIcon from '@/assets/google-icon.svg'
 
 const form = z.object({
-  email: z.string().email({ message: 'Informe um e-mail válido' }),
+  email: z.email({ message: 'Informe um e-mail válido' }),
   password: z.string().min(6, 'Mínimo 6 caracteres'),
   remember: z.boolean().optional()
 })
