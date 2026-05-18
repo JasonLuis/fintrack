@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Sparkles, Mail, Lock, EyeOff, Eye, ArrowRight } from 'lucide-react'
 import { Area, AreaChart, ResponsiveContainer } from 'recharts'
@@ -7,6 +7,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleIcon from '@/assets/google-icon.svg'
+import { useLogin } from '../hooks/useLogin'
+import { useAuthStore } from '../store/auth.store'
 
 const form = z.object({
   email: z.email({ message: 'Informe um e-mail válido' }),
@@ -27,6 +29,24 @@ const Login = () => {
     defaultValues: { email: '', password: '', remember: true }
   })
 
+  const navigate = useNavigate()
+  const { mutateAsync, isPending } = useLogin()
+
+  const onSubmit = async (data: FormValues) => {
+    try {
+      await mutateAsync({
+        email: data.email,
+        password: data.password
+      })
+
+      navigate('/dashboard')
+    } catch {
+      alert('Erro ao realizar login')
+    }
+  }
+
+  const isLoading = isSubmitting || isPending
+
   const monthlySeries = [
     { month: 'Jan', income: 12400, expense: 8200 },
     { month: 'Fev', income: 11800, expense: 7950 },
@@ -41,6 +61,13 @@ const Login = () => {
     { month: 'Nov', income: 15900, expense: 10800 },
     { month: 'Dez', income: 16800, expense: 11200 }
   ]
+
+  // caso ja esteja logado, redirecionar para a tela de Dashboard
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />
+  }
+
   return (
     <div className="min-h-screen grid lg:grid-cols-2 bg-background text-foreground">
       {/*Parte esquerda*/}
@@ -169,7 +196,7 @@ const Login = () => {
               Acesse sua conta para continuar gerenciando suas finanças.
             </p>
           </div>
-          <form onSubmit={handleSubmit(() => {})} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label className="text-xs text-muted-foreground">E-mail</label>
               <div className="mt-1 flex items-center gap-2 px-3 h-11 rounded-xl border border-border bg-secondary/40 focus-within:border-primary transition">
@@ -197,11 +224,13 @@ const Login = () => {
                 <input
                   {...register('password')}
                   type={showPassword ? 'text' : 'password'}
+                  disabled={isLoading}
                   placeholder="••••••••"
                   className="flex-1 bg-transparent outline-none text-sm"
                 />
                 <button
                   type="button"
+                  disabled={isLoading}
                   onClick={() => setShowPassword(!showPassword)}
                   className="text-muted-foreground hover:text-foreground"
                 >
@@ -215,18 +244,28 @@ const Login = () => {
             <label className="flex items-center gap-2 text-xs text-muted-foreground">
               <input
                 type="checkbox"
+                disabled={isLoading}
                 {...register('remember')}
                 className="accent-primary h-4 w-4 rounded"
               />
               Lembrar de mim
             </label>
             <button
-              disabled={isSubmitting}
+              disabled={isLoading}
               type="submit"
               className="w-full h-11 rounded-xl text-sm font-semibold inline-flex items-center justify-center gap-2 text-background transition hover:opacity-90 cursor-pointer"
               style={{ background: 'var(--gradient-primary)', boxShadow: 'var(--shadow-glow)' }}
             >
-              Entrar <ArrowRight className="h-4 w-4" />
+              {isLoading ? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-background border-t-transparent" />
+                  Entrando...
+                </>
+              ) : (
+                <>
+                  Entrar <ArrowRight className="h-4 w-4" />
+                </>
+              )}
             </button>
             <div className="flex items-center gap-3 text-xs text-muted-foreground">
               <span className="flex-1 h-px bg-border" />
