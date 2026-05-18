@@ -79,7 +79,7 @@ const Login = () => {
           className="absolute -top-32 -left-20 h-[500px] w-[500px] rounded-full opacity-30 blur-3xl"
           style={{ background: 'var(--gradient-primary)' }}
         />
-        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full opacity-20 blur-3xl bg-accent" />
+        {/* <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full opacity-20 blur-3xl bg-accent" /> */}
 
         <Link to="/" className="relative flex items-center gap-2 text-foreground">
           <div
@@ -176,6 +176,7 @@ const Login = () => {
             </div>
           </div>
         </div>
+        <div className="relative text-xs text-muted-foreground">© 2026 FinTrack</div>
       </div>
 
       {/* Parte da direita - Tela de login */}

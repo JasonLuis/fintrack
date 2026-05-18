@@ -20,6 +20,10 @@
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-destructive: var(--destructive);
@@ -30,9 +34,13 @@
   --radius: 0.875rem;
   --background: #0f172a;
   --foreground: #f8fafc;
-  --card: #111827;
+  --card: oklch(0.247 0.034 265); /* #111827 */
   --card-foreground: #f8fafc;
   --primary: #22c55e;
+  --primary-foreground: oklch(0.15 0.02 265);
+  --secondary: oklch(0.28 0.04 265);
+  --secondary-foreground: oklch(0.978 0.005 247);
+  --muted: oklch(0.28 0.04 265);
   --muted-foreground: #94a3b8;
   --accent: #3b82f6;
   --accent-foreground: #f8fafc;
@@ -40,8 +48,10 @@
   --destructive-foreground: #f8fafc;
   --border: #1e293b;
   --input: #1e293b;
+
   --gradient-primary: linear-gradient(135deg, #22c55e 0%, #3b82f6);
   --gradient-glow: radial-gradient(circle at 50% 0%, oklch(0.72 0.19 145 / 0.18), transparent 60%);
+  --shadow-card: 0 8px 32px -8px oklch(0.1 0.02 265 / 0.5);
 }
 @layer base {
   * {
