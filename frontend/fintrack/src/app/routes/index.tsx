@@ -1,5 +1,5 @@
 import Login from '@/features/auth/pages/Login'
-import Dashboard from '@/features/dashboard/Dashborad'
+import Dashboard from '@/features/dashboard/pages/Dashborad'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { GuestRoute } from './guards/GuestRoute'
 import { ProtectedRoute } from './guards/ProtectedRoute'
