@@ -50,6 +50,7 @@
   --input: #1e293b;
 
   --gradient-primary: linear-gradient(135deg, #22c55e 0%, #3b82f6);
+  --gradient-card: linear-gradient(160deg, oklch(0.27 0.04 265 / 0.9), oklch(0.22 0.035 265 / 0.7));
   --gradient-glow: radial-gradient(circle at 50% 0%, oklch(0.72 0.19 145 / 0.18), transparent 60%);
   --shadow-card: 0 8px 32px -8px oklch(0.1 0.02 265 / 0.5);
 }
@@ -77,5 +78,11 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  .card-elevated {
+    background: var(--gradient-card);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
   }
 }
