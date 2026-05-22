@@ -20,6 +20,7 @@ import {
 } from './dropdown-menu'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useAuthStore } from '@/features/auth/store/auth.store'
 
 type PropsType = {
   title: string
@@ -96,6 +97,8 @@ export const UiTopbar = (props: PropsType) => {
   const [notifications, setNotifications] = useState(initialNotifications)
   const unreadCount = notifications.filter((n) => n.unread).length
   const markAllRead = () => setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })))
+
+  const logout = useAuthStore((state) => state.logout)
 
   return (
     <header className="sticky top-0 z-30 backdrop-blur-xl bg-background/70 border-b border-border">
@@ -207,7 +210,7 @@ export const UiTopbar = (props: PropsType) => {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => navigate('/app/settings')}>
+            {/* <DropdownMenuItem onClick={() => navigate('/app/settings')}>
               <User className="h-4 w-4" />
               Perfil
             </DropdownMenuItem>
@@ -215,9 +218,12 @@ export const UiTopbar = (props: PropsType) => {
               <Settings className="h-4 w-4" />
               Configurações
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> */}
             <DropdownMenuItem
-              onClick={() => navigate('/login')}
+              onClick={() => {
+                logout()
+                navigate('/login')
+              }}
               className="text-destructive focus:text-destructive"
             >
               <LogOut className="h-4 w-4" />
