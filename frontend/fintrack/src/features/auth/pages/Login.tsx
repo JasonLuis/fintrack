@@ -1,7 +1,6 @@
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { Sparkles, Mail, Lock, EyeOff, Eye, ArrowRight } from 'lucide-react'
-import { Area, AreaChart, ResponsiveContainer } from 'recharts'
 import { Helper } from '@/shared/helpers/Helper'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -10,6 +9,7 @@ import GoogleIcon from '@/assets/google-icon.svg'
 import { useLogin } from '../hooks/useLogin'
 import { useAuthStore } from '../store/auth.store'
 import toast from 'react-hot-toast'
+import { UiAreaChart } from '@/components/ui/UiAreaChart'
 
 const form = z.object({
   email: z.email({ message: 'Informe um e-mail válido' }),
@@ -47,21 +47,6 @@ const Login = () => {
   }
 
   const isLoading = isSubmitting || isPending
-
-  const monthlySeries = [
-    { month: 'Jan', income: 12400, expense: 8200 },
-    { month: 'Fev', income: 11800, expense: 7950 },
-    { month: 'Mar', income: 13200, expense: 9100 },
-    { month: 'Abr', income: 12900, expense: 8600 },
-    { month: 'Mai', income: 13800, expense: 9400 },
-    { month: 'Jun', income: 14250, expense: 8950 },
-    { month: 'Jul', income: 14600, expense: 9650 },
-    { month: 'Ago', income: 15100, expense: 10120 },
-    { month: 'Set', income: 14800, expense: 9700 },
-    { month: 'Out', income: 15400, expense: 10500 },
-    { month: 'Nov', income: 15900, expense: 10800 },
-    { month: 'Dez', income: 16800, expense: 11200 }
-  ]
 
   // caso ja esteja logado, redirecionar para a tela de Dashboard
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
@@ -118,34 +103,7 @@ const Login = () => {
                     </div>
                   </div>
                   <div className="h-28">
-                    <ResponsiveContainer>
-                      <AreaChart data={monthlySeries}>
-                        <defs>
-                          <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#22C55E" stopOpacity={0.7} />
-                            <stop offset="100%" stopColor="#22C55E" stopOpacity={0} />
-                          </linearGradient>
-                          <linearGradient id="gExpense" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#EF4444" stopOpacity={0.5} />
-                            <stop offset="100%" stopColor="#EF4444" stopOpacity={0} />
-                          </linearGradient>
-                        </defs>
-                        <Area
-                          type="monotone"
-                          dataKey="income"
-                          stroke="#22C55E"
-                          strokeWidth={2.5}
-                          fill="url(#lg)"
-                        />
-                        <Area
-                          type="monotone"
-                          dataKey="expense"
-                          stroke="#EF4444"
-                          strokeWidth={2.5}
-                          fill="url(#gExpense)"
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
+                    <UiAreaChart />
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="rounded-xl bg-secondary/40 p-2">
