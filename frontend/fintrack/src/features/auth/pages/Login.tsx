@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import GoogleIcon from '@/assets/google-icon.svg'
 import { useLogin } from '../hooks/useLogin'
 import { useAuthStore } from '../store/auth.store'
+import toast from 'react-hot-toast'
 
 const form = z.object({
   email: z.email({ message: 'Informe um e-mail válido' }),
@@ -41,7 +42,7 @@ const Login = () => {
 
       navigate('/dashboard')
     } catch {
-      alert('Erro ao realizar login')
+      toast.error('Erro ao realizar login.')
     }
   }
 
@@ -96,86 +97,89 @@ const Login = () => {
           </div>
         </Link>
 
-        <div className="relative space-y-8">
-          <h2 className="text-4xl font-bold tracking-tight leading-tight max-w-md">
-            Controle suas finanças de forma{' '}
-            <span className="gradient-text">simples e inteligente</span>.
-          </h2>
-          <div className="relative max-w-sm">
-            <div className="rounded-[2.5rem] border border-border bg-card/80 backdrop-blur p-4 shadow-2xl">
-              <div className="rounded-3xl bg-background p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-[10px] text-muted-foreground uppercase tracking-widest">
-                      Saldo
+        <div className="flex item-center justify-center">
+          <div className="relative space-y-8">
+            <h2 className="text-4xl font-bold tracking-tight leading-tight max-w-md">
+              Controle suas finanças de forma{' '}
+              <span className="gradient-text">simples e inteligente</span>.
+            </h2>
+            <div className="relative max-w-sm">
+              <div className="rounded-[2.5rem] border border-border bg-card/80 backdrop-blur p-4 shadow-2xl">
+                <div className="rounded-3xl bg-background p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-[10px] text-muted-foreground uppercase tracking-widest">
+                        Saldo
+                      </div>
+                      <div className="text-xl font-bold">{Helper.currency(28430.55)}</div>
                     </div>
-                    <div className="text-xl font-bold">{Helper.currency(28430.55)}</div>
-                  </div>
-                  <div className="px-2 py-0.5 rounded-full text-[10px] bg-primary/15 text-primary">
-                    +8.2%
-                  </div>
-                </div>
-                <div className="h-28">
-                  <ResponsiveContainer>
-                    <AreaChart data={monthlySeries}>
-                      <defs>
-                        <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#22C55E" stopOpacity={0.7} />
-                          <stop offset="100%" stopColor="#22C55E" stopOpacity={0} />
-                        </linearGradient>
-                        <linearGradient id="gExpense" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#EF4444" stopOpacity={0.5} />
-                          <stop offset="100%" stopColor="#EF4444" stopOpacity={0} />
-                        </linearGradient>
-                      </defs>
-                      <Area
-                        type="monotone"
-                        dataKey="income"
-                        stroke="#22C55E"
-                        strokeWidth={2.5}
-                        fill="url(#lg)"
-                      />
-                      <Area
-                        type="monotone"
-                        dataKey="expense"
-                        stroke="#EF4444"
-                        strokeWidth={2.5}
-                        fill="url(#gExpense)"
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="rounded-xl bg-secondary/40 p-2">
-                    <div className="text-[9px] text-muted-foreground">Receitas</div>
-                    <div className="text-sm font-semibold text-primary">
-                      {Helper.currency(14800)}
+                    <div className="px-2 py-0.5 rounded-full text-[10px] bg-primary/15 text-primary">
+                      +8.2%
                     </div>
                   </div>
-                  <div className="rounded-xl bg-secondary/40 p-2">
-                    <div className="text-[9px] text-muted-foreground">Despesas</div>
-                    <div className="text-sm font-semibold">{Helper.currency(1300)}</div>
+                  <div className="h-28">
+                    <ResponsiveContainer>
+                      <AreaChart data={monthlySeries}>
+                        <defs>
+                          <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#22C55E" stopOpacity={0.7} />
+                            <stop offset="100%" stopColor="#22C55E" stopOpacity={0} />
+                          </linearGradient>
+                          <linearGradient id="gExpense" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#EF4444" stopOpacity={0.5} />
+                            <stop offset="100%" stopColor="#EF4444" stopOpacity={0} />
+                          </linearGradient>
+                        </defs>
+                        <Area
+                          type="monotone"
+                          dataKey="income"
+                          stroke="#22C55E"
+                          strokeWidth={2.5}
+                          fill="url(#lg)"
+                        />
+                        <Area
+                          type="monotone"
+                          dataKey="expense"
+                          stroke="#EF4444"
+                          strokeWidth={2.5}
+                          fill="url(#gExpense)"
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="rounded-xl bg-secondary/40 p-2">
+                      <div className="text-[9px] text-muted-foreground">Receitas</div>
+                      <div className="text-sm font-semibold text-primary">
+                        {Helper.currency(14800)}
+                      </div>
+                    </div>
+                    <div className="rounded-xl bg-secondary/40 p-2">
+                      <div className="text-[9px] text-muted-foreground">Despesas</div>
+                      <div className="text-sm font-semibold">{Helper.currency(1300)}</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-3 gap-4 max-w-md">
-            <div>
-              <div className="text-lg font-bold gradient-text">+5</div>
-              <div className="text-[11px] text-muted-foreground">Casais conectados</div>
-            </div>
-            <div>
-              <div className="text-lg font-bold gradient-text">R$ 2K</div>
-              <div className="text-[11px] text-muted-foreground">Movimentados</div>
-            </div>
-            <div>
-              <div className="text-lg font-bold gradient-text">5</div>
-              <div className="text-[11px] text-muted-foreground">Avaliação média</div>
+            <div className="grid grid-cols-3 gap-4 max-w-md">
+              <div>
+                <div className="text-lg font-bold gradient-text">+5</div>
+                <div className="text-[11px] text-muted-foreground">Casais conectados</div>
+              </div>
+              <div>
+                <div className="text-lg font-bold gradient-text">R$ 2K</div>
+                <div className="text-[11px] text-muted-foreground">Movimentados</div>
+              </div>
+              <div>
+                <div className="text-lg font-bold gradient-text">5</div>
+                <div className="text-[11px] text-muted-foreground">Avaliação média</div>
+              </div>
             </div>
           </div>
         </div>
+
         <div className="relative text-xs text-muted-foreground">© 2026 FinTrack</div>
       </div>
 
