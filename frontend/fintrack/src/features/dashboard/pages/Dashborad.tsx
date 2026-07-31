@@ -1,15 +1,9 @@
 import { UiTopbar } from '@/components/ui/UiTopbar'
-import { Helper } from '@/shared/helpers/Helper'
-import {
-  ArrowDownRight,
-  ArrowUpRight,
-  PiggyBank,
-  TrendingDown,
-  TrendingUp,
-  Wallet
-} from 'lucide-react'
+import UiCarStats, { type CardStatsType } from '@/components/ui/UiCarStats'
 
-const stats = [
+import { PiggyBank, TrendingDown, TrendingUp, Wallet } from 'lucide-react'
+
+const stats: CardStatsType[] = [
   {
     label: 'Saldo total',
     value: 28430.55,
@@ -62,42 +56,7 @@ const Dashboard = () => {
         <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
           {/* Stats */}
           {stats.map((s) => {
-            const Icon = s.icon
-            return (
-              <div
-                key={s.label}
-                className="card-elevated rounded-2xl p-4 lg:p-5 relative overflow-hidden"
-              >
-                <div
-                  className="absolute -right-6 -top-6 h-24 w-24 rounded-full opacity-20 blur-2xl"
-                  style={{ background: s.accent }}
-                />
-                <div className="flex items-center justify-between">
-                  <div
-                    className="h-9 w-9 rounded-lg grid place-items-center"
-                    style={{ background: s.accent }}
-                  >
-                    <Icon className="h-4 w-4 text-background" />
-                  </div>
-                  <span
-                    className={`inline-flex items-center gap-0.5 text-[11px] font-medium px-2 py-0.5 rounded-full ${s.up ? 'text-primary bg-primary/10' : 'text-destructive bg-destructive/10'}`}
-                  >
-                    {s.up ? (
-                      <ArrowUpRight className="h-3 w-3" />
-                    ) : (
-                      <ArrowDownRight className="h-3 w-3" />
-                    )}
-                    {s.delta}
-                  </span>
-                </div>
-                <div className="mt-4">
-                  <div className="text-xs text-muted-foreground">{s.label}</div>
-                  <div className="text-xl lg:text-2xl font-bold tracking-tight mt-1">
-                    {Helper.currency(s.value)}
-                  </div>
-                </div>
-              </div>
-            )
+            return <UiCarStats {...s} />
           })}
         </section>
       </main>
